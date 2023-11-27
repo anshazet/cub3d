@@ -16,15 +16,19 @@ CFLAGS := -Wall -Werror -Wextra -g
 # Additional dependencies
 #LFT := ./ft_printf/libftprintf.a
 #LIB := -L./ft_printf -lftprintf
+LMLX = ./minilibx-linux/libmlx.a
 LFT := ./libft/libft.a
-LIB := -L./libft -lft
+LIB := -L./libft -lft -L ./minilibx-linux/ -lmlx -lXext -lX11 -lm -lbsd -L ./libft -lft
 
 RM := rm -f
 
-all: $(OBJ_DIR) $(LFT) $(EXECUTABLE)
+all: $(OBJ_DIR) $(LFT) $(LMLX) $(EXECUTABLE)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
+
+${LMLX}:
+				@make -s -C ./minilibx-linux/ all
 
 $(LFT):
 #	@make -s -C ./ft_printf/ all
