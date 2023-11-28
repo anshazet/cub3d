@@ -1,10 +1,13 @@
 # Define your source files and target executable
 SRC_DIR := ./src
 SRC_FILES :=	main.c \
-
+				parse_map.c \
+				parse_map_utils.c \
+				hooks.c \
+				ft_free.c
 
 OBJ_DIR := ./obj
-EXECUTABLE := cub3d
+EXECUTABLE := cub3D
 
 # Generate a list of object files with paths
 OBJ_FILES := $(addprefix $(OBJ_DIR)/,$(SRC_FILES:.c=.o))
