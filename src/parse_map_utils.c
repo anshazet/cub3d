@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:15:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/11/28 15:51:22 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/11/28 18:14:30 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 char	ft_is_map_char(char c)
 {
-	if (c == )
+	if (c == '1' || c == '0' || c == 'D' || c == 'N'
+		|| c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	return (0);
 }
 
 char	ft_get_info(char *line, t_data *data)
@@ -42,7 +45,7 @@ char	ft_get_info(char *line, t_data *data)
 			i++;
 		if (line[i])
 			return (0);
-		return (1);
+		return (0);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:14:02 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/11/28 15:49:35 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/11/28 18:07:28 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	main(int ac, char **av)
 {
 	t_data	*data;
 
-	if (ac < 2)
+	if (ac != 2)
 	{
-		printf("Error: to few arguments\n");
+		printf("Error: wrong number of arguments\n");
 		return (0);
 	}
-	if (ac == 2)
-		printf("welcome to cub3d\n");
+	else
+		printf("Welcome to cub3d\n");
 	data = ft_parse_map(av[1]);
 	if (!data)
 	{

@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 10:01:20 by gbricot           #+#    #+#             */
-/*   Updated: 2023/11/28 15:50:49 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/11/28 18:27:47 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,58 @@ int	ft_get_color(char *line)
 	return (err);
 }
 
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		str[j++] = s1[i];
+		i++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		str[j++] = s2[i];
+		i++;
+	}
+	str[j] = 0;
+	free(s1);
+	free(s2);
+	return (str);
+}
+
+
+char	**ft_get_map(char *line, int fd)
+{
+	char	*map;
+	char	**temp_map;
+
+	map = ft_calloc(1, 1);
+	while (line)
+	{
+		map = ft_strjoin_free(map, line);
+		line = get_next_line(fd);
+	}
+	temp_map = ft_split(map, '\n');
+	int i = 0;
+	free (map);
+	while (temp_map[i])
+	{
+		printf("%s\n", temp_map[i++]); //debug
+	}
+	return (temp_map);
+}
+
 t_data	*ft_read_infos(int fd)
 {
 	char	*line;
@@ -119,16 +171,24 @@ t_data	*ft_read_infos(int fd)
 	while (line)
 	{
 		i = 0;
-		while (line[i] && !ft_isprint(line[i]))
+		while (line[i] && (!ft_isprint(line[i]) || line[i] == ' '))
 			i++;
-		if (line[i] == '1' || line[i] == '1')
 		if (!ft_get_info(line + i, data))
 		{
-			free(line);
-			ft_free_all(data);
-			return (NULL);
+			if (line[i] && ft_is_map_char(line[i]))
+			{
+				data->map = ft_get_map(line, fd);
+				line = NULL;
+			}
+			else
+			{
+				free(line);
+				ft_free_all(data);
+				return (NULL);
+			}
 		}
-		free(line);
+		if (line)
+			free(line);
 		line = get_next_line(fd);
 	}
 	if (!ft_check_data(data))

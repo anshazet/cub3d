@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/11/28 15:32:10 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/11/28 17:56:17 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ t_data	*ft_read_infos(int fd);
 
 char	ft_get_info(char *line, t_data *data);
 char	ft_check_data(t_data *data);
+char	ft_is_map_char(char c);
+
+char	*ft_strjoin_free(char *s1, char *s2);
 
 void	*ft_get_image(char *line, t_data *data);
 
@@ -78,6 +81,6 @@ void	ft_free_all(t_data *data);
 
 /*			HOOKS			*/
 
-int	ft_close_button(t_data *data);
+int		ft_close_button(t_data *data);
 
 #endif
