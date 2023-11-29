@@ -6,11 +6,28 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 10:01:20 by gbricot           #+#    #+#             */
-/*   Updated: 2023/11/29 10:33:22 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/11/29 14:00:07 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_check_file_name(char *map_name)
+{
+	int		i;
+
+	i = ft_strlen(map_name);
+	if (i < 4)
+	{
+		printf("Error: the file don't have the .cub suffix\n");
+		exit(0);
+	}
+	if (ft_strncmp(map_name + (i - 4), ".cub", 4))
+	{
+		printf("Error: the file don't have the .cub suffix\n");
+		exit(0);
+	}
+}
 
 t_data	*ft_parse_map(char *map_name)
 {
@@ -18,11 +35,7 @@ t_data	*ft_parse_map(char *map_name)
 	char	*line;
 	t_data	*data;
 
-	if (!map_name || !*map_name)
-	{
-		printf("Error please select a valid map\n");
-		exit (0);
-	}
+	ft_check_file_name(map_name);
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
 	{
@@ -31,7 +44,7 @@ t_data	*ft_parse_map(char *map_name)
 	}
 	data = ft_read_infos(fd);
 	line = get_next_line(fd);
-	while(line)
+	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
@@ -106,39 +119,9 @@ int	ft_get_color(char *line)
 	return (err);
 }
 
-char	*ft_strjoin_free(char *s1, char *s2)
+int		ft_strlen_map(char *str)
 {
-	char	*str;
-	size_t	i;
-	size_t	j;
-
-	if (!s1 || !s2)
-		return (NULL);
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
-	{
-		str[j++] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (s2[i])
-	{
-		str[j++] = s2[i];
-		i++;
-	}
-	str[j] = 0;
-	free(s1);
-	free(s2);
-	return (str);
-}
-
-int     ft_strlen_map(char *str)
-{
-	int i;
+	int		i;
 
 	i = 0;
 	while (str[i])
@@ -172,11 +155,11 @@ char	**ft_extend_map(char **map, int max_len)
 	return (map);
 }
 
-char    **ft_check_map(char **base_map)
+char	**ft_check_map(char **base_map, t_data *data)
 {
-	int     i;
-	int     max_len;
-	int     tab;
+	int		i;
+	int		max_len;
+	int		tab;
 
 	i = 0;
 	max_len = 0;
@@ -195,10 +178,12 @@ char    **ft_check_map(char **base_map)
 		else if (i > max_len)
 			max_len = i;
 	}
+	data->map_max_x = max_len;
+	data->map_max_y = tab - 1;
 	return (ft_extend_map(base_map, max_len));
 }
 
-char	**ft_get_map(char *line, int fd)
+char	**ft_get_map(char *line, int fd, t_data *data)
 {
 	char	*map;
 	char	**temp_map;
@@ -222,7 +207,7 @@ char	**ft_get_map(char *line, int fd)
 	{
 		printf("%s\n", temp_map[i++]); //debug
 	}*/
-	return (ft_check_map(temp_map));
+	return (ft_check_map(temp_map, data));
 }
 
 t_data	*ft_read_infos(int fd)
@@ -244,7 +229,7 @@ t_data	*ft_read_infos(int fd)
 		{
 			if (line[i] && ft_is_map_char(line[i]))
 			{
-				data->map = ft_get_map(line, fd);
+				data->map = ft_get_map(line, fd, data);
 				line = NULL;
 			}
 			else

@@ -3,6 +3,7 @@ SRC_DIR := ./src
 SRC_FILES :=	main.c \
 				parse_map.c \
 				parse_map_utils.c \
+				pathfinding.c \
 				hooks.c \
 				ft_free.c
 
