@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:15:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/11/28 18:14:30 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:34:14 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	ft_is_map_char(char c)
 {
 	if (c == '1' || c == '0' || c == 'D' || c == 'N'
-		|| c == 'S' || c == 'E' || c == 'W')
+		|| c == 'S' || c == 'E' || c == 'W' || c == ' ' || c == '\n')
 		return (1);
 	return (0);
 }
@@ -58,5 +58,8 @@ char	ft_check_data(t_data *data)
 	if (data->textures->floor == 2147483648
 		|| data->textures->ceiling == 2147483648)
 		return (0);
+	if (!data->map)
+		return (0);
+	if ()
 	return (1);
 }

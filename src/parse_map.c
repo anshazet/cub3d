@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 10:01:20 by gbricot           #+#    #+#             */
-/*   Updated: 2023/11/28 18:27:47 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:33:22 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ t_data	*ft_parse_map(char *map_name)
 	if (!map_name || !*map_name)
 	{
 		printf("Error please select a valid map\n");
-		return (NULL);
+		exit (0);
 	}
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
 	{
 		printf("Error while opening the map\n");
-		return (NULL);
+		exit (0);
 	}
 	data = ft_read_infos(fd);
 	line = get_next_line(fd);
@@ -136,6 +136,67 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	return (str);
 }
 
+int     ft_strlen_map(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_is_map_char(str[i]))
+			return (-1);
+		i++;
+	}
+	return (i);
+}
+
+char	**ft_extend_map(char **map, int max_len)
+{
+	int		tab;
+	char	*new_ptr;
+
+	tab = 0;
+	while (map[tab])
+	{
+		if ((int) ft_strlen(map[tab]) != max_len)
+		{
+			new_ptr = ft_memalloc(max_len + 1);
+			ft_memset(new_ptr, ' ', max_len);
+			new_ptr[max_len] = '\0';
+			ft_memcpy(new_ptr, map[tab], ft_strlen(map[tab]));
+			free (map[tab]);
+			map[tab] = new_ptr;
+		}
+		tab++;
+	}
+	return (map);
+}
+
+char    **ft_check_map(char **base_map)
+{
+	int     i;
+	int     max_len;
+	int     tab;
+
+	i = 0;
+	max_len = 0;
+	tab = 0;
+	while (base_map[tab])
+	{
+		i = ft_strlen_map(base_map[tab++]);
+		if (i == -1)
+		{
+			i = 0;
+			while (base_map[i])
+				free(base_map[i++]);
+			free(base_map);
+			return (NULL);
+		}
+		else if (i > max_len)
+			max_len = i;
+	}
+	return (ft_extend_map(base_map, max_len));
+}
 
 char	**ft_get_map(char *line, int fd)
 {
@@ -145,17 +206,23 @@ char	**ft_get_map(char *line, int fd)
 	map = ft_calloc(1, 1);
 	while (line)
 	{
+		if (ft_strlen_map(line) == -1)
+		{
+			free (map);
+			free (line);
+			return (0);
+		}
 		map = ft_strjoin_free(map, line);
 		line = get_next_line(fd);
 	}
 	temp_map = ft_split(map, '\n');
-	int i = 0;
 	free (map);
+	/*int i = 0;
 	while (temp_map[i])
 	{
 		printf("%s\n", temp_map[i++]); //debug
-	}
-	return (temp_map);
+	}*/
+	return (ft_check_map(temp_map));
 }
 
 t_data	*ft_read_infos(int fd)
