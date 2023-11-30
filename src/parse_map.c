@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 10:01:20 by gbricot           #+#    #+#             */
-/*   Updated: 2023/11/29 14:00:07 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/11/30 14:21:08 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ char	**ft_check_map(char **base_map, t_data *data)
 			max_len = i;
 	}
 	data->map_max_x = max_len;
-	data->map_max_y = tab - 1;
+	data->map_max_y = tab;
 	return (ft_extend_map(base_map, max_len));
 }
 
