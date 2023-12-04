@@ -5,9 +5,12 @@ SRC_FILES :=	main.c \
 				parse_map_utils.c \
 				pathfinding.c \
 				hooks.c \
-				raycast.c \
 				display.c \
-				ft_free.c
+				ft_free.c \
+				ft_init.c \
+				ft_raycasting_1.c \
+				ft_raycasting_2.c
+
 
 OBJ_DIR := ./obj
 EXECUTABLE := cub3D

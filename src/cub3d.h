@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/04 09:46:43 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/04 10:59:47 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 
 /*		STRUCTURES		*/
 
-typedef struct s_textures
+typedef struct s_texture
 {
 	void			*no;
 	void			*so;
@@ -90,6 +90,27 @@ typedef struct s_player
 	float		angle;
 }		t_player;
 
+typedef struct s_rcast{
+	int		mapX;
+	int		mapY;
+	int		mapS;
+	int		*map;
+	int		mx;
+	int		my;
+	int		mp;
+	float	Tan;
+	float	xo;
+	float	yo;
+	float	px; //player x
+	float	py; //player y
+	float	pdx; //player position delta
+	float	pdy;
+	float	pa; //player's angle, the direction the player is facing
+	float	ra; //current ray angle being cast from the player's perspective
+	float	rx;
+	float	ry;
+}			t_rcast;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -101,6 +122,7 @@ typedef struct s_data
 	t_textures	*textures;
 	t_player	*player;
 	t_image		img;
+	t_rcast		rcast;
 }		t_data;
 
 /*		PARSING FUNCTIONS		*/
@@ -139,5 +161,21 @@ void	ft_raycast_horizontal(t_data *data, int angle);
 void	img_pix_put(t_image *img, int x, int y, int color);
 void	ft_create_image(t_data *data);
 void	ft_draw_bg(t_data *data);
+
+/*		FI_INIT			*/
+int ft_game_loop(t_data *data);
+
+
+/*		FT_PAYCASTING_1			*/
+float ft_deg_to_rad(float a);
+float ft_fix_ang(float a);
+void ft_cast_vertical_ray(t_rcast *rcast, float *disV);
+void ft_cast_horizontal_ray(t_rcast *rcast, float *disH);
+void ft_draw_rays_2d(t_data *data);
+
+/*		FT_PAYCASTING_2			*/
+void ft_draw_wall(t_data *data, float x, float distance, int color);
+
+
 
 #endif

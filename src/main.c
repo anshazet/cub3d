@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:14:02 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/01 12:00:25 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/04 10:57:16 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	main(int ac, char **av)
 	{
 		printf("%s\n", data->map[i++]); //debug
 	}
+	data->rcast.pdx = cos(ft_deg_to_rad(data->rcast.pa));
+	data->rcast.pdy = -sin(ft_deg_to_rad(data->rcast.pa));
 	mlx_hook(data->win, 17, 0L, ft_close_button, data);
 	mlx_hook(data->win, 02, 1L<<0, ft_player_move, data);
 	mlx_loop(data->mlx);
