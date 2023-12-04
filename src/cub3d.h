@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/11/29 12:52:31 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/04 09:46:43 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 
 # define W			119
 # define S			115
 # define A			97
 # define D			100
+
+# define Q			113
+# define E			101
 
 # define ESC		65307
 
@@ -37,8 +41,15 @@
 
 # define WALL_RES	500
 
-# define SCREENWIDTH	640
-# define SCREENHEIGHT	480
+# define SCREENWIDTH	1280
+# define SCREENHEIGHT	720
+
+# define MOVE_SPEED		0.15
+# define ROT_SPEED		2.5
+
+# define SQUARE_RES		100
+
+# define FOV		90
 
 /*		STRUCTURES		*/
 
@@ -52,11 +63,32 @@ typedef struct s_textures
 	unsigned int	ceiling;
 }		t_textures;
 
+typedef struct s_image
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_image;
+
 typedef struct s_coords
 {
 	int		x;
 	int		y;
 }			t_coords;
+
+typedef struct s_coords_f
+{
+	float	x;
+	float	y;
+}			t_coords_f;
+
+typedef struct s_player
+{
+	t_coords_f	*pos;
+	float		angle;
+}		t_player;
 
 typedef struct s_data
 {
@@ -67,7 +99,8 @@ typedef struct s_data
 	int			map_max_x;
 	char		err;
 	t_textures	*textures;
-	t_coords	*player;
+	t_player	*player;
+	t_image		img;
 }		t_data;
 
 /*		PARSING FUNCTIONS		*/
@@ -94,5 +127,17 @@ void	ft_free_all(t_data *data);
 /*		HOOKS		*/
 
 int		ft_close_button(t_data *data);
+int		ft_player_move(int keycode, t_data *data);
+
+/*		RAYCASTING		*/
+
+//void	ft_render_game(t_data *data);
+void	ft_raycast_horizontal(t_data *data, int angle);
+
+/*		DRAW			*/
+
+void	img_pix_put(t_image *img, int x, int y, int color);
+void	ft_create_image(t_data *data);
+void	ft_draw_bg(t_data *data);
 
 #endif

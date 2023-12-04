@@ -5,6 +5,8 @@ SRC_FILES :=	main.c \
 				parse_map_utils.c \
 				pathfinding.c \
 				hooks.c \
+				raycast.c \
+				display.c \
 				ft_free.c
 
 OBJ_DIR := ./obj
