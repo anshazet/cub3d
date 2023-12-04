@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycasting_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:13:51 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/04 11:01:37 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/04 11:24:48 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,89 +35,89 @@ void ft_cast_vertical_ray(t_data *data, float *disV)
 	*disV = 100000;
 	Tan = tan(ft_deg_to_rad(data->rcast.ra));
 
-	if (cos(ft_deg_to_rad(rcast->ra)) > 0.001)
+	if (cos(ft_deg_to_rad(data->rcast.ra)) > 0.001)
 	{
-		rcast->rx = (((int)rcast->px >> 6) << 6) + SQUARE_RES;
-		rcast->ry = (rcast->px - rcast->rx) * Tan + rcast->py;
-		rcast->xo = 64;
-		rcast->yo = -rcast->xo * Tan;
+		data->rcast.rx = (((int)data->rcast.px >> 6) << 6) + SQUARE_RES;
+		data->rcast.ry = (data->rcast.px - data->rcast.rx) * Tan + data->rcast.py;
+		data->rcast.xo = 64;
+		data->rcast.yo = data->rcast.xo * Tan;
 	}
-	else if (cos(ft_deg_to_rad(rcast->ra)) < -0.001)
+	else if (cos(ft_deg_to_rad(data->rcast.ra)) < -0.001)
 	{
-		rcast->rx = (((int)rcast->px >> 6) << 6) - 0.0001;
-		rcast->ry = (rcast->px - rcast->rx) * Tan + rcast->py;
-		rcast->xo = -64;
-		rcast->yo = - rcast->xo * Tan;
+		data->rcast.rx = (((int)data->rcast.px >> 6) << 6) - 0.0001;
+		data->rcast.ry = (data->rcast.px - data->rcast.rx) * Tan + data->rcast.py;
+		data->rcast.xo = -SQUARE_RES;
+		data->rcast.yo = - data->rcast.xo * Tan;
 	}
 	else
 	{
-		rcast->rx = rcast->px;
-		rcast->ry = rcast->py;
+		data->rcast.rx = data->rcast.px;
+		data->rcast.ry = data->rcast.py;
 		dof = 8; // looking up or down, no hit
 	}
 	while (dof < 8)
 	{
-		rcast->mx = (int)(rcast->rx) >> 6;
-		rcast->my = (int)(rcast->ry) >> 6;
-		rcast->mp = rcast->my * rcast->mapX + rcast->mx;
-		if (rcast->mp > 0 && rcast->mp < rcast->mapX * rcast->mapY && rcast->map[rcast->mp] == 1)
+		data->rcast.mx = (int)(data->rcast.rx) >> 6;
+		data->rcast.my = (int)(data->rcast.ry) >> 6;
+		data->rcast.mp = data->rcast.my * data->map_max_x + data->rcast.mx;
+		if (data->rcast.mp > 0 && data->rcast.mp < data->map_max_x * data->map_max_y && data->map[data->rcast.mp] == '1')
 		{
 			dof = 8;
-			*disV = cos(ft_deg_to_rad(rcast->ra)) * (rcast->rx - rcast->px) - sin(ft_deg_to_rad(rcast->ra)) * (rcast->ry - rcast->py); // hit
+			*disV = cos(ft_deg_to_rad(data->rcast.ra)) * (data->rcast.rx - data->rcast.px) - sin(ft_deg_to_rad(data->rcast.ra)) * (data->rcast.ry - data->rcast.py); // hit
 		}
 		else
 		{
-			rcast->rx += rcast->xo;
-			rcast->ry += rcast->yo;
+			data->rcast.rx += data->rcast.xo;
+			data->rcast.ry += data->rcast.yo;
 			dof += 1; // check next horizontal
 		}
 	}
 }
 
-void ft_cast_horizontal_ray(t_rcast *rcast, float *disH)
+void ft_cast_horizontal_ray(t_data *data, float *disH)
 {
 	float	Tan;
 	int		dof;
 
 	dof = 0;
 	*disH = 100000;
-	Tan = 1.0 / tan(ft_deg_to_rad(rcast->ra));
+	Tan = 1.0 / tan(ft_deg_to_rad(data->rcast.ra));
 
-	if (sin(ft_deg_to_rad(rcast->ra)) > 0.001)
+	if (sin(ft_deg_to_rad(data->rcast.ra)) > 0.001)
 	{
-		rcast->ry = (((int)rcast->py >> 6) << 6) - 0.0001;
-		rcast->rx = (rcast->py - rcast->ry) * Tan + rcast->px;
-		rcast->yo = -64;
-		rcast->xo = - rcast->yo * Tan;
+		data->rcast.ry = (((int)data->rcast.py >> 6) << 6) - 0.0001;
+		data->rcast.rx = (data->rcast.py - data->rcast.ry) * Tan + data->rcast.px;
+		data->rcast.yo = -SQUARE_RES;
+		data->rcast.xo = - data->rcast.yo * Tan;
 	}
-	else if (sin(ft_deg_to_rad(rcast->ra)) < -0.001)
+	else if (sin(ft_deg_to_rad(data->rcast.ra)) < -0.001)
 	{
-		rcast->ry = (((int)rcast->py >> 6) << 6) + SQUARE_RES;
-		rcast->rx = (rcast->py - rcast->ry) * Tan + rcast->px;
-		rcast->yo = 64;
-		rcast->xo = - rcast->yo * Tan;
+		data->rcast.ry = (((int)data->rcast.py >> 6) << 6) + SQUARE_RES;
+		data->rcast.rx = (data->rcast.py - data->rcast.ry) * Tan + data->rcast.px;
+		data->rcast.yo = SQUARE_RES;
+		data->rcast.xo = - data->rcast.yo * Tan;
 	}
 	else
 	{
-		rcast->rx = rcast->px;
-		rcast->ry = rcast->py;
+		data->rcast.rx = data->rcast.px;
+		data->rcast.ry = data->rcast.py;
 		dof = 8; // looking straight left or right, no hit
 	}
 
 	while (dof < 8)
 	{
-		rcast->mx = (int)(rcast->rx) >> 6;
-		rcast->my = (int)(rcast->ry) >> 6;
-		rcast->mp = rcast->my * rcast->mapX + rcast->mx;
-		if (rcast->mp > 0 && rcast->mp < rcast->mapX * rcast->mapY && rcast->map[rcast->mp] == 1)
+		data->rcast.mx = (int)(data->rcast.rx) >> 6;
+		data->rcast.my = (int)(data->rcast.ry) >> 6;
+		data->rcast.mp = data->rcast.my * data->map_max_x + data->rcast.mx;
+		if (data->rcast.mp > 0 && data->rcast.mp < data->map_max_x * data->map_max_y && data->map[data->rcast.mp] == '1')
 		{
 			dof = 8;
-			*disH = cos(ft_deg_to_rad(rcast->ra)) * (rcast->rx - rcast->px) - sin(ft_deg_to_rad(rcast->ra)) * (rcast->ry - rcast->py); // hit
+			*disH = cos(ft_deg_to_rad(data->rcast.ra)) * (data->rcast.rx - data->rcast.px) - sin(ft_deg_to_rad(data->rcast.ra)) * (data->rcast.ry - data->rcast.py); // hit
 		}
 		else
 		{
-			rcast->rx += rcast->xo;
-			rcast->ry += rcast->yo;
+			data->rcast.rx += data->rcast.xo;
+			data->rcast.ry += data->rcast.yo;
 			dof += 1; // check next horizontal
 		}
 	}
@@ -137,10 +137,10 @@ void ft_draw_rays_2d(t_data *data)
 	r = 0;
 	while (r < angle_max)
 	{
-		ft_cast_vertical_ray(&data->rcast, &disV);
+		ft_cast_vertical_ray(data, &disV);
 //		vx = rcast->rx;
 //		vy = rcast->ry;
-		ft_cast_horizontal_ray(&data->rcast, &disH);
+		ft_cast_horizontal_ray(data, &disH);
 
 		int color = 0x00FF00; // Some color for the ray
 

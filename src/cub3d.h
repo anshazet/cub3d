@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/04 10:59:47 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/04 11:21:13 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # define MOVE_SPEED		0.15
 # define ROT_SPEED		2.5
 
-# define SQUARE_RES		100
+# define SQUARE_RES		64
 
 # define FOV		90
 
@@ -169,8 +169,8 @@ int ft_game_loop(t_data *data);
 /*		FT_PAYCASTING_1			*/
 float ft_deg_to_rad(float a);
 float ft_fix_ang(float a);
-void ft_cast_vertical_ray(t_rcast *rcast, float *disV);
-void ft_cast_horizontal_ray(t_rcast *rcast, float *disH);
+void ft_cast_vertical_ray(t_data *data, float *disV);
+void ft_cast_horizontal_ray(t_data *data, float *disH);
 void ft_draw_rays_2d(t_data *data);
 
 /*		FT_PAYCASTING_2			*/
