@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:30:06 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/04 10:41:15 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:30:23 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	ft_rotate_player(t_data *data, float val)
 
 int		ft_player_move( int keycode, t_data *data)
 {
+	ft_create_image(data);
 	if (keycode == W)
 		ft_deplace_player(data, MOVE_SPEED, 0);
 	else if (keycode == S)
