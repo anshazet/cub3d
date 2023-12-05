@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/05 12:26:31 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:00:55 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@
 
 # define WALL_RES	500
 
-# define SCREENWIDTH	1280
-# define SCREENHEIGHT	720
+# define SCREENWIDTH	858
+# define SCREENHEIGHT	480
 
 # define MOVE_SPEED		0.15
-# define ROT_SPEED		2.0
+# define ROT_SPEED		0.05
 
 # define SQUARE_RES		64
 
@@ -152,6 +152,7 @@ void	ft_free_all(t_data *data);
 
 int		ft_close_button(t_data *data);
 int		ft_player_move(int keycode, t_data *data);
+int		ft_mouse_hook(int x, int y, t_data *param);
 
 /*		RAYCASTING		*/
 
@@ -178,7 +179,7 @@ void ft_draw_rays_2d(t_data *data);
 /*		FT_PAYCASTING_2			*/
 void ft_draw_wall(t_data *data, float x, float distance, int color);
 float castRay(t_data *data);
-float	vector_distance(t_data *data);
+void    vector_distance(t_data *data);
 
 
 #endif

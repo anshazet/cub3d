@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:13:51 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/05 13:34:29 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:21:12 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ float ft_deg_to_rad(float a)
 	return (a * M_PI / 180.0);
 }
 
-float	vector_distance(t_data *data)
+void	vector_distance(t_data *data)
 {
 	t_coords_f	pos;
 	t_coords_f	dir;
@@ -27,9 +27,8 @@ float	vector_distance(t_data *data)
 	pos.y = data->player->pos->y;
 	dir.y = cosf(ft_deg_to_rad(data->player->angle));
 	dir.x = sinf(ft_deg_to_rad(data->player->angle));
-	//printf("dir.x = %f | dir.y = %f\n", dir.x, dir.y);
-	plane.x = 0;
-	plane.y = tan(ft_deg_to_rad(FOV) / 2.0);
+	plane.x = cosf(FOV / 2.0) * -dir.y;
+	plane.y = sinf(FOV / 2.0) * dir.x;
 
 	int x = 0;
 	while (x < SCREENWIDTH)
@@ -117,8 +116,6 @@ float	vector_distance(t_data *data)
 			drawEnd = SCREENHEIGHT - 1;
 		while (drawStart < drawEnd)
 			img_pix_put(&data->img, x, drawStart++, 0xFFFFFF);
-		//printf("Wall distance :%f\n", perpWallDist);
 		x++;
 	}
-	return (0);
 }

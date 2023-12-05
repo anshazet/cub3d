@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:18:22 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/04 09:50:15 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:48:27 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_free_all(t_data *data)
 	int		i;
 
 	i = 0;
+    //mlx_mouse_show(data->mlx, data->win);
 	if (data)
 	{
 		if (data->win)
