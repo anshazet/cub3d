@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/04 20:43:35 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/05 12:26:31 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 
 # define SQUARE_RES		64
 
-# define FOV		60
+# define FOV		90
 
 /*		STRUCTURES		*/
 
@@ -85,12 +85,6 @@ typedef struct s_coords_f
 	float	x;
 	float	y;
 }			t_coords_f;
-
-typedef struct s_coords_d
-{
-	double	x;
-	double	y;
-}			t_coords_d;
 
 typedef struct s_player
 {

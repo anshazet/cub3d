@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:13:51 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/05 11:02:15 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/05 13:34:29 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@ float	vector_distance(t_data *data)
 
 	pos.x = data->player->pos->x;
 	pos.y = data->player->pos->y;
-    dir.x = -1;
-    dir.y = 0;
+	dir.y = cosf(ft_deg_to_rad(data->player->angle));
+	dir.x = sinf(ft_deg_to_rad(data->player->angle));
+	//printf("dir.x = %f | dir.y = %f\n", dir.x, dir.y);
 	plane.x = 0;
-	plane.y = 0.66;
+	plane.y = tan(ft_deg_to_rad(FOV) / 2.0);
 
 	int x = 0;
 	while (x < SCREENWIDTH)
 	{
-		double	camerax = 2.0 * x / SCREENWIDTH - 1.0;
-		t_coords_d	raydir;
+		float	camerax = 2.0 * x / SCREENWIDTH - 1.0;
+		t_coords_f	raydir;
 		raydir.x = dir.x + plane.x * camerax;
 		raydir.y = dir.y + plane.y * camerax;
 
@@ -42,17 +43,17 @@ float	vector_distance(t_data *data)
 		map.x = pos.x;
 		map.y = pos.y;
 
-		t_coords_d	sidedist;
-		t_coords_d	deltadist;
+		t_coords_f	sidedist;
+		t_coords_f	deltadist;
 		if (raydir.x == 0)
-			deltadist.x = DBL_MAX;
+			deltadist.x = 1e30;
 		else
-			deltadist.x = fabs((1 / raydir.x));
+			deltadist.x = fabs((1.0 / raydir.x));
 		if (raydir.y == 0)
-			deltadist.y = DBL_MAX;
+			deltadist.y = 1e30;
 		else
-			deltadist.y = fabs((1 / raydir.y));
-		double	perpWallDist;
+			deltadist.y = fabs((1.0 / raydir.y));
+		float	perpWallDist;
 
 		t_coords	step;
 		int		hit = 0;

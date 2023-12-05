@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:14:02 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/04 20:31:22 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/05 11:25:36 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av)
 	}
 	ft_game_loop(data);
 	mlx_hook(data->win, 17, 0L, ft_close_button, data);
-	mlx_hook(data->win, 02, 1L<<0, ft_player_move, data);
+	mlx_hook(data->win, 2, 1L<<0, ft_player_move, data);
 	mlx_loop(data->mlx);
 	ft_free_all(data);
 	return (0);
