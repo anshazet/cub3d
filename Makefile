@@ -9,7 +9,8 @@ SRC_FILES :=	main.c \
 				ft_free.c \
 				ft_init.c \
 				ft_raycasting_1.c \
-				bresenham.c
+				bresenham.c \
+				mini_map.c
 
 
 OBJ_DIR := ./obj

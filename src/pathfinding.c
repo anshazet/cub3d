@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinding.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:50:34 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/05 18:19:22 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/06 16:06:25 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	ft_put_player(t_data *data, int tab, int i)
+{
+	data->player = ft_calloc(sizeof(t_player), 1);
+	data->player->pos.x = (float) i + 0.5;
+	data->player->pos.y = (float) tab + 0.5;
+	if (data->map[tab][i] == 'N')
+		data->player->angle = 180;
+	if (data->map[tab][i] == 'S')
+		data->player->angle = 0;
+	if (data->map[tab][i] == 'E')
+		data->player->angle = 90;
+	if (data->map[tab][i] == 'W')
+		data->player->angle = 270;
+}
 
 void	ft_get_player_coords(t_data *data)
 {
@@ -27,12 +42,7 @@ void	ft_get_player_coords(t_data *data)
 				|| data->map[tab][i] == 'E' || data->map[tab][i] == 'W')
 			{
 				if (!data->player)
-				{
-					data->player = ft_calloc(sizeof(t_player), 1);
-					data->player->angle = 90; // Need to add the player angle with the addapted character !!!
-					data->player->pos.x = (float) i + 0.5;
-					data->player->pos.y = (float) tab + 0.5;
-				}
+					ft_put_player(data, tab, i);
 				else
 				{
 					free(data->player);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/06 15:10:31 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/06 16:01:06 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@
 # define SQUARE_RES		64
 
 # define FOV		90
+
+#define MINI_MAP_SCALE	16 // Example scale factor to reduce the mini map size
+#define X_OFFSET		10 // X offset from the screen corner
+#define Y_OFFSET		10 // Y offset from the screen corner
 
 /*		STRUCTURES		*/
 
@@ -176,6 +180,10 @@ void ft_draw_rays_2d(t_data *data);
 /*		FT_PAYCASTING_2			*/
 float	castRay(t_data *data);
 void	ft_raycast(t_data *data);
+
+/*		MINI_MAP			*/
+void ft_draw_mini_map(t_data *data);
+void ft_draw_mini_player(t_data *data);
 
 
 #endif
