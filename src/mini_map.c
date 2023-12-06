@@ -6,7 +6,7 @@
 /*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:11:06 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/06 16:16:14 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:43:02 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,33 +70,33 @@ void ft_draw_mini_player(t_data *data)
 
 	py = 0;
 		// Draw the player on the mini-map
-	int playerMapX = X_OFFSET + (int)(data->player->pos.x * MINI_MAP_SCALE) - MINI_MAP_SCALE / 4; // Center the square on the player
-	int playerMapY = Y_OFFSET + (int)(data->player->pos.y * MINI_MAP_SCALE) - MINI_MAP_SCALE / 4; // Center the square on the player
-	float playerSize = MINI_MAP_SCALE / 2;														 // Size of the square representing the player
+	int player_map_x = X_OFFSET + (int)(data->player->pos.x * MINI_MAP_SCALE) - MINI_MAP_SCALE / 4; // Center the square on the player
+	int player_map_y = Y_OFFSET + (int)(data->player->pos.y * MINI_MAP_SCALE) - MINI_MAP_SCALE / 4; // Center the square on the player
+	float player_size = MINI_MAP_SCALE / 2;														 // Size of the square representing the player
 
-	while (py < playerSize)
+	while (py < player_size)
 	{
 		px = 0;
-		while (px < playerSize)
+		while (px < player_size)
 		{
-			img_pix_put(&data->img, playerMapX + px - playerSize / 2, playerMapY + py - playerSize / 2, 0xFF0000); // Red square for the player
+			img_pix_put(&data->img, player_map_x + px - player_size / 2, player_map_y + py - player_size / 2, 0xFF0000); // Red square for the player
 			px++;
 		}
 		py++;
 	}
 	// Draw the direction indicator
-	float directionSize = playerSize * 2; // Size of the directional indicator
+	float direction_size = player_size * 2; // Size of the directional indicator
 	float angle = ft_deg_to_rad(data->player->angle + 90); // TO FIX
-	int dx = (int)(cosf(angle) * directionSize);
-	int dy = (int)(sinf(angle) * directionSize);
+	int dx = (int)(cosf(angle) * direction_size);
+	int dy = (int)(sinf(angle) * direction_size);
 
 	// Draw a line for the direction
 	int i = 0;
-	while (i < directionSize)
+	while (i < direction_size)
 	{
-		float directionX = playerMapX + (dx * i) / directionSize;
-		float directionY = playerMapY + (dy * i) / directionSize;
-		if (i >= playerSize / 2)
+		float directionX = player_map_x + (dx * i) / direction_size;
+		float directionY = player_map_y + (dy * i) / direction_size;
+		if (i >= player_size / 2)
 		{															   // Start drawing after half the player size
 			img_pix_put(&data->img, directionX, directionY, 0xFF0000); // Yellow line for direction
 		}
