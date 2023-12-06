@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:45:26 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/06 14:28:07 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/06 17:41:44 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_raycast(t_data *data)
 		else
 			data->rcast->perp_wall_dist = (data->rcast->sidedist.y - data->rcast->deltadist.y);
 
-		int line_height = (int)(SCREENHEIGHT / data->rcast->perp_wall_dist);
+		int line_height = (int) (SCREENHEIGHT / data->rcast->perp_wall_dist);
 		int draw_start = -line_height / 2 + SCREENHEIGHT / 2;
 		if(draw_start < 0)
 			draw_start = 0;
@@ -109,7 +109,7 @@ void	ft_raycast(t_data *data)
 		else
 			wall_x = data->player->pos.x + data->rcast->perp_wall_dist * data->rcast->raydir.x;
 		wall_x -= floor((wall_x));
-		int tex_x = (int) (wall_x * (float) WALL_RES);
+		int tex_x = (int) (wall_x * WALL_RES);
 		if(data->rcast->side == 0 && data->rcast->raydir.x > 0)
 			tex_x = WALL_RES - tex_x - 1;
 		if(data->rcast->side == 1 && data->rcast->raydir.y < 0)
@@ -123,7 +123,7 @@ void	ft_raycast(t_data *data)
 		{
 			int	tex_y = (int) tex_pos & (WALL_RES - 1);
 			tex_pos += step;
-			int	index = (int) (tex_y * data->textures->no.line_len) + (int) (tex_x * (data->textures->no.bpp / 8));
+			int	index = (int) ((tex_y * data->textures->no.line_len) + (tex_x * (data->textures->no.bpp / 8)));
 			unsigned int red = data->textures->no.addr[index];
 			unsigned int green = data->textures->no.addr[index + 1];
 			unsigned int blue = data->textures->no.addr[index + 2];
@@ -131,8 +131,7 @@ void	ft_raycast(t_data *data)
 			y++;
 		}
 /*		while (draw_start < draw_end)
-			img_pix_put(&data->img, x, draw_start++, 0xFFFFFF);		//just white walls
-*/		
-		x++;
+			img_pix_put(&data->img, x, draw_start++, 0xFFFFFF);
+*/		x++;
 	}
 }

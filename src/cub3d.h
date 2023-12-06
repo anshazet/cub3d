@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/06 16:01:06 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:00:03 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@
 # define SCREENHEIGHT	1080
 
 # define MOVE_SPEED		0.1
-# define ROT_SPEED		0.02
+# define ROT_SPEED		0.015
 
 # define SQUARE_RES		64
 
 # define FOV		90
 
-#define MINI_MAP_SCALE	16 // Example scale factor to reduce the mini map size
+#define MINI_MAP_SCALE	8 // Example scale factor to reduce the mini map size
 #define X_OFFSET		10 // X offset from the screen corner
 #define Y_OFFSET		10 // Y offset from the screen corner
 
@@ -149,8 +149,7 @@ void	ft_free_all(t_data *data);
 /*		HOOKS		*/
 
 int		ft_close_button(t_data *data);
-int		ft_player_move_front(int keycode, t_data *data);
-int		ft_player_move_strafe(int keycode, t_data *data);
+int		ft_player_move(int keycode, t_data *data);
 int		ft_mouse_hook(int x, int y, t_data *param);
 
 /*		RAYCASTING		*/

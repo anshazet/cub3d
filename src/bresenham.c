@@ -6,13 +6,13 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:53:55 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/06 15:01:08 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/06 16:42:50 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	ft_draw_octant_0(float x1, float y1, float x2, float y2, t_data *data)
+void	ft_draw_octant_0(float x1, float y1, float x2, float y2, t_data *data)
 {
 	float	error;
 	float	slope;
@@ -32,7 +32,7 @@ static void	ft_draw_octant_0(float x1, float y1, float x2, float y2, t_data *dat
 	}
 }
 
-static void	ft_draw_octant_1(float x1, float y1, float x2, float y2, t_data *data)
+void	ft_draw_octant_1(float x1, float y1, float x2, float y2, t_data *data)
 {
 	float	error;
 	float	slope;
@@ -52,7 +52,7 @@ static void	ft_draw_octant_1(float x1, float y1, float x2, float y2, t_data *dat
 	}
 }
 
-static void	ft_draw_octant_6(float x1, float y1, float x2, float y2, t_data *data)
+void	ft_draw_octant_6(float x1, float y1, float x2, float y2, t_data *data)
 {
 	float	error;
 	float	slope;
@@ -72,7 +72,7 @@ static void	ft_draw_octant_6(float x1, float y1, float x2, float y2, t_data *dat
 	}
 }
 
-static void	ft_draw_octant_7(float x1, float y1, float x2, float y2, t_data *data)
+void	ft_draw_octant_7(float x1, float y1, float x2, float y2, t_data *data)
 {
 	float	error;
 	float	slope;
