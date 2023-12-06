@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:14:02 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/05 18:11:38 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/06 15:12:29 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	ft_print_map(data->map);
-	printf("[DEBUG] Textures* :%p, %p, %p ,%p\nColors Hex : %u, %u\n", data->textures->no, data->textures->so, data->textures->ea, data->textures->we, data->textures->floor, data->textures->ceiling);
+	//printf("[DEBUG] Textures* :%p, %p, %p ,%p\nColors Hex : %u, %u\n", data->textures->no, data->textures->so, data->textures->ea, data->textures->we, data->textures->floor, data->textures->ceiling);
 	data->win = mlx_new_window(data->mlx, SCREENWIDTH, SCREENHEIGHT, "cub3D");
 	data->rcast = ft_calloc(sizeof(t_rcast), 1);
+	mlx_mouse_move(data->mlx, data->win, SCREENWIDTH / 2, SCREENHEIGHT / 2);
 	mlx_hook(data->win, 17, 0L, ft_close_button, data);
-	mlx_hook(data->win, 2, 1L<<0, ft_player_move, data);
+	mlx_hook(data->win, 2, 1L<<0, ft_player_move_front, data);
+	mlx_hook(data->win, 3, 1L<<0, ft_player_move_strafe, data);
 	mlx_hook(data->win, 6, 1l<<6, ft_mouse_hook, data);
 	mlx_loop_hook(data->mlx, ft_game_loop, data);
 	mlx_loop(data->mlx);

@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:30:06 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/05 17:32:06 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/06 15:10:45 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static void	ft_rotate_player(t_data *data, float val)
 int		ft_mouse_hook(int x, int y, t_data *data)
 {
 	(void) y;
+	if (x == SCREENWIDTH / 2)
+		return (0);
 	x -= SCREENWIDTH / 2;
 	ft_rotate_player(data, (float) (x * -ROT_SPEED));
 	mlx_mouse_move(data->mlx, data->win, SCREENWIDTH / 2, SCREENHEIGHT / 2);
@@ -45,20 +47,21 @@ int		ft_mouse_hook(int x, int y, t_data *data)
 	return (0);
 }
 
-int		ft_player_move( int keycode, t_data *data)
+int		ft_player_move_strafe(int keycode, t_data *data)
+{
+	if (keycode == A)
+		ft_deplace_player(data, MOVE_SPEED, 0);
+	else if (keycode == D)
+		ft_deplace_player(data, -MOVE_SPEED, 0);
+	return (0);
+}
+
+int		ft_player_move_front(int keycode, t_data *data)
 {
 	if (keycode == W)
 		ft_deplace_player(data, 0, -MOVE_SPEED);
 	else if (keycode == S)
 		ft_deplace_player(data, 0, MOVE_SPEED);
-	else if (keycode == A)
-		ft_deplace_player(data, MOVE_SPEED, 0);
-	else if (keycode == D)
-		ft_deplace_player(data, -MOVE_SPEED, 0);
-/*	else if (keycode == E)
-		ft_rotate_player(data, -ROT_SPEED);		// Remplaced by ft_mouse_hook
-	else if (keycode == Q)
-		ft_rotate_player(data, ROT_SPEED);	*/
 	else if (keycode == ESC)
 	{
 		ft_free_all(data);

@@ -1,8 +1,8 @@
 
-NO ./textures/ground.xpm
-SO ./textures/ground.xpm
-WE ./textures/ground.xpm
-EA ./textures/ground.xpm
+NO ./textures/grey.xpm
+SO ./textures/blue.xpm
+WE ./textures/green.xpm
+EA ./textures/red.xpm
 
 F 255,215,0
 C 139,69,19

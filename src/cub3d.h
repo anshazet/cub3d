@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/05 18:05:46 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/06 15:10:31 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@
 # define LEFT		65361
 # define RIGHT		65363
 
-# define WALL_RES	500
+# define WALL_RES	128
 
 # define SCREENWIDTH	1920
 # define SCREENHEIGHT	1080
 
-# define MOVE_SPEED		0.20
+# define MOVE_SPEED		0.1
 # define ROT_SPEED		0.02
 
 # define SQUARE_RES		64
@@ -54,16 +54,6 @@
 # define FOV		90
 
 /*		STRUCTURES		*/
-
-typedef struct s_texture
-{
-	void			*no;
-	void			*so;
-	void			*ea;
-	void			*we;
-	unsigned int	floor;
-	unsigned int	ceiling;
-}		t_textures;
 
 typedef struct s_image
 {
@@ -73,6 +63,16 @@ typedef struct s_image
 	int		line_len;
 	int		endian;
 }	t_image;
+
+typedef struct s_texture
+{
+	t_image		no;
+	t_image		so;
+	t_image		ea;
+	t_image		we;
+	unsigned int	floor;
+	unsigned int	ceiling;
+}		t_textures;
 
 typedef struct s_coords
 {
@@ -145,7 +145,8 @@ void	ft_free_all(t_data *data);
 /*		HOOKS		*/
 
 int		ft_close_button(t_data *data);
-int		ft_player_move(int keycode, t_data *data);
+int		ft_player_move_front(int keycode, t_data *data);
+int		ft_player_move_strafe(int keycode, t_data *data);
 int		ft_mouse_hook(int x, int y, t_data *param);
 
 /*		RAYCASTING		*/
@@ -154,6 +155,8 @@ int		ft_mouse_hook(int x, int y, t_data *param);
 void	ft_raycast_horizontal(t_data *data, int angle);
 
 /*		DRAW			*/
+
+void	ft_draw_vector(float x1, float y1, float x2, float y2, t_data *data);
 
 void	img_pix_put(t_image *img, int x, int y, int color);
 void	ft_create_image(t_data *data);
