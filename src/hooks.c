@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:30:06 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/07 10:46:06 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/07 14:15:36 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	ft_mouse_hook(int x, int y, t_data *data)
 	x -= SCREENWIDTH / 2;
 	ft_rotate_player(data, (float)(x * -ROT_SPEED));
 	mlx_mouse_move(data->mlx, data->win, SCREENWIDTH / 2, SCREENHEIGHT / 2);
+	//printf("%f\n", data->player->angle);
 	/*mlx_mouse_hide(data->mlx, data->win); // leaks...*/
 	return (0);
 }

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/07 10:45:34 by ashalagi         ###   ########.fr       */
+/*   Created: 2023/12/07 11:19:29 by gbricot           #+#    #+#             */
+/*   Updated: 2023/12/07 15:51:30 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -18,7 +19,6 @@
 # include "../minilibx-linux/mlx_int.h"
 
 # include <limits.h>
-# include <float.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -34,7 +34,7 @@
 # define Q			113
 # define E			101
 
-#define SPACE		32
+# define SPACE		32
 
 # define ESC		65307
 
@@ -55,9 +55,9 @@
 
 # define FOV		90
 
-#define MINI_MAP_SCALE	8 // Example scale factor to reduce the mini map size
-#define X_OFFSET		10 // X offset from the screen corner
-#define Y_OFFSET		10 // Y offset from the screen corner
+# define MINI_MAP_SCALE	8 // Example scale factor to reduce the mini map size
+# define X_OFFSET		10 // X offset from the screen corner
+# define Y_OFFSET		10 // Y offset from the screen corner
 
 /*		STRUCTURES		*/
 
@@ -95,11 +95,11 @@ typedef struct s_coords_f
 typedef struct s_player
 {
 	t_coords_f	pos;
-	float		angle;
+	float	angle;
 //	int			facing_door; // 1 if facing a door, 0 otherwise
 	int		facing_door;
-	int			door_x;
-	int			door_y;
+	int		door_x;
+	int		door_y;
 }		t_player;
 
 typedef struct s_rcast
@@ -112,9 +112,17 @@ typedef struct s_rcast
 	t_coords_f	deltadist;
 	t_coords	map;
 	t_coords	step;
-	float	camera_x;
-	float	perp_wall_dist;
+	float		camera_x;
+	float		line_height;
+	float		perp_wall_dist;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+	int		x;
 	int		side;
+	int		tex_x;
+	int		draw_end;
+	int		draw_start;
 }			t_rcast;
 
 typedef struct s_data
