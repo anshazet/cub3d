@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycasting_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:45:26 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/06 17:41:44 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/07 09:43:51 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float ft_deg_to_rad(float a)
+float	ft_deg_to_rad(float a)
 {
 	return (a * M_PI / 180.0);
 }
@@ -25,8 +25,7 @@ void	ft_raycast(t_data *data)
 	data->rcast->dir.x = sinf(ft_deg_to_rad(data->player->angle));
 	data->rcast->plane.x = cosf(FOV / 2.0) * -data->rcast->dir.y;
 	data->rcast->plane.y = sinf(FOV / 2.0) * data->rcast->dir.x;
-
-	int x = 0;
+	int	x = 0;
 	while (x < SCREENWIDTH)
 	{
 		data->rcast->camera_x = 2.0 * x / SCREENWIDTH - 1.0;
@@ -130,8 +129,8 @@ void	ft_raycast(t_data *data)
 			img_pix_put(&data->img, x, y, ((red << 16) + (green << 8) + blue));
 			y++;
 		}
-/*		while (draw_start < draw_end)
-			img_pix_put(&data->img, x, draw_start++, 0xFFFFFF);
-*/		x++;
+//		while (draw_start < draw_end)
+//			img_pix_put(&data->img, x, draw_start++, 0xFFFFFF);
+		x++;
 	}
 }

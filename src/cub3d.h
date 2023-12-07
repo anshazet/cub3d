@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:15:04 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/06 17:00:03 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/07 10:45:34 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 
 # define Q			113
 # define E			101
+
+#define SPACE		32
 
 # define ESC		65307
 
@@ -94,6 +96,10 @@ typedef struct s_player
 {
 	t_coords_f	pos;
 	float		angle;
+//	int			facing_door; // 1 if facing a door, 0 otherwise
+	int		facing_door;
+	int			door_x;
+	int			door_y;
 }		t_player;
 
 typedef struct s_rcast
@@ -152,8 +158,6 @@ int		ft_close_button(t_data *data);
 int		ft_player_move(int keycode, t_data *data);
 int		ft_mouse_hook(int x, int y, t_data *param);
 
-/*		RAYCASTING		*/
-
 //void	ft_render_game(t_data *data);
 void	ft_raycast_horizontal(t_data *data, int angle);
 
@@ -170,19 +174,18 @@ int ft_game_loop(t_data *data);
 
 
 /*		FT_PAYCASTING_1			*/
-float ft_deg_to_rad(float a);
-float ft_fix_ang(float a);
-void ft_cast_vertical_ray(t_data *data, float *disV);
-void ft_cast_horizontal_ray(t_data *data, float *disH);
-void ft_draw_rays_2d(t_data *data);
-
-/*		FT_PAYCASTING_2			*/
-float	castRay(t_data *data);
+float	ft_deg_to_rad(float a);
+float	ft_fix_ang(float a);
+void	ft_cast_vertical_ray(t_data *data, float *disV);
+void	ft_cast_horizontal_ray(t_data *data, float *disH);
+void	ft_draw_rays_2d(t_data *data);
 void	ft_raycast(t_data *data);
 
 /*		MINI_MAP			*/
 void ft_draw_mini_map(t_data *data);
 void ft_draw_mini_player(t_data *data);
 
+/*		DOOR			*/
+void ft_interact_door(t_data *data);
 
 #endif
