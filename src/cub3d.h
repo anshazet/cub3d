@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:19:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/08 10:10:26 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:04:37 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,14 @@ typedef struct s_rcast
 	t_coords	step;
 	float		camera_x;
 	float		line_height;
+	float		tex_pos;
 	float		perp_wall_dist;
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char	blue;
 	int		x;
 	int		side;
-	int		tex_x;
+	float		tex_x;
 	int		draw_end;
 	int		draw_start;
 }			t_rcast;
