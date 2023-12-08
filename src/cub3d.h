@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:19:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/08 13:04:37 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/08 16:35:59 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@
 # define SQUARE_RES		64
 
 # define FOV		90
+
+# define ERR		2147483648
 
 # define MINI_MAP_SCALE	8 // Example scale factor to reduce the mini map size
 # define X_OFFSET		10 // X offset from the screen corner
