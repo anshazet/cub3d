@@ -6,7 +6,7 @@
 /*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:11:06 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/07 09:02:41 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/11 10:26:16 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void ft_draw_mini_map(t_data *data)
 			if (data->map[y][x] == '1')
 			{
 				color = 0xFFFFFF; // White for walls
+			}
+			else if (data->map[y][x] == 'D')
+			{
+				color = 0x00FFFF;
 			}
 			else if (data->map[y][x] == '0' || data->map[y][x] == 'N' \
 					|| data->map[y][x] == 'S' || data->map[y][x] == 'E' \
