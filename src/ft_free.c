@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:18:22 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/06 12:21:22 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/11 11:12:32 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ static void	ft_free_textures(t_data	*data)
 		mlx_destroy_image(data->mlx, data->textures->ea.mlx_img);
 	if (data->textures->we.mlx_img)
 		mlx_destroy_image(data->mlx, data->textures->we.mlx_img);
+	if (data->textures->door.mlx_img)
+		mlx_destroy_image(data->mlx, data->textures->door.mlx_img);
+	if (data->textures->anim_1.mlx_img)
+		mlx_destroy_image(data->mlx, data->textures->anim_1.mlx_img);
+	if (data->textures->anim_2.mlx_img)
+		mlx_destroy_image(data->mlx, data->textures->anim_2.mlx_img);
+	if (data->textures->anim_3.mlx_img)
+		mlx_destroy_image(data->mlx, data->textures->anim_3.mlx_img);
+	if (data->textures->anim_4.mlx_img)
+		mlx_destroy_image(data->mlx, data->textures->anim_4.mlx_img);
 	free(data->textures);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:45:26 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/08 14:02:23 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/11 11:44:42 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ft_init_raycast(t_data *data)
 	data->rcast->pos.y = data->player->pos.y;
 	data->rcast->dir.y = cosf(ft_deg_to_rad(data->player->angle));
 	data->rcast->dir.x = sinf(ft_deg_to_rad(data->player->angle));
-	data->rcast->plane.x = cosf(FOV / 2.0) * -data->rcast->dir.y;
-	data->rcast->plane.y = sinf(FOV / 2.0) * data->rcast->dir.x;
+	data->rcast->plane.x = cosf(ft_deg_to_rad(FOV) / 2.0) * -data->rcast->dir.y;
+	data->rcast->plane.y = sinf(ft_deg_to_rad(FOV) / 2.0) * data->rcast->dir.x;
 	data->rcast->x = 0;
 }
 
@@ -97,8 +97,16 @@ void	ft_search_wall(t_data *data)
 		if (data->rcast->map.x >= 0 && data->rcast->map.x <= data->map_max_x \
 			&& data->rcast->map.y >= 0 && data->rcast->map.y < data->map_max_y)
 		{
-			if (data->map[data->rcast->map.y][data->rcast->map.x] == '1')
+			if (data->map[data->rcast->map.y][data->rcast->map.x] == '1' || \
+				data->map[data->rcast->map.y][data->rcast->map.x] == '2' || \
+				data->map[data->rcast->map.y][data->rcast->map.x] == '3' || \
+				data->map[data->rcast->map.y][data->rcast->map.x] == '4' || \
+				data->map[data->rcast->map.y][data->rcast->map.x] == '5' || \
+				data->map[data->rcast->map.y][data->rcast->map.x] == 'D')
+			{
 				hit = 1;
+				data->rcast->wall_type = &data->map[data->rcast->map.y][data->rcast->map.x];
+			}
 		}
 		else
 			break ;
@@ -139,6 +147,46 @@ void	ft_calc_wall_dist(t_data *data)
 	
 // }
 
+void	ft_get_pix_anim(t_data *data, t_image *anim)
+{
+	data->rcast->red = anim->addr[data->rcast->index + 2];
+	data->rcast->green = anim->addr[data->rcast->index + 1];
+	data->rcast->blue = anim->addr[data->rcast->index];
+	if (!data->rcast->red && !data->rcast->blue && data->rcast->green == 255)
+	{
+		if (data->rcast->side)
+		{
+			if (data->rcast->raydir.y > 0.0)
+			{
+				data->rcast->red = data->textures->so.addr[data->rcast->index + 2];
+				data->rcast->green = data->textures->so.addr[data->rcast->index + 1];
+				data->rcast->blue = data->textures->so.addr[data->rcast->index];
+			}
+			else
+			{
+				data->rcast->red = data->textures->no.addr[data->rcast->index + 2];
+				data->rcast->green = data->textures->no.addr[data->rcast->index + 1];
+				data->rcast->blue = data->textures->no.addr[data->rcast->index];
+			}
+		}
+		else
+		{
+			if (data->rcast->raydir.x > 0.0)
+			{
+				data->rcast->red = data->textures->ea.addr[data->rcast->index + 2];
+				data->rcast->green = data->textures->ea.addr[data->rcast->index + 1];
+				data->rcast->blue = data->textures->ea.addr[data->rcast->index];
+			}
+			else
+			{
+				data->rcast->red = data->textures->we.addr[data->rcast->index + 2];
+				data->rcast->green = data->textures->we.addr[data->rcast->index + 1];
+				data->rcast->blue = data->textures->we.addr[data->rcast->index];
+			}
+		}
+	}
+}
+
 void	ft_raycast(t_data *data)
 {
 	ft_init_raycast(data);
@@ -155,35 +203,52 @@ void	ft_raycast(t_data *data)
 		{
 			int	tex_y = (int) data->rcast->tex_pos & (WALL_RES - 1);
 			data->rcast->tex_pos += step;
-			int	index = floorf((tex_y * data->textures->no.line_len) + (data->rcast->tex_x * (data->textures->no.bpp / 8)));
-			if (data->rcast->side)
+			data->rcast->index = floorf((tex_y * data->textures->no.line_len) + (data->rcast->tex_x * (data->textures->no.bpp / 8)));
+			if (*data->rcast->wall_type == 'D')
 			{
-				if (data->rcast->raydir.y > 0.0)
-				{
-					data->rcast->red = data->textures->so.addr[index + 2];
-					data->rcast->green = data->textures->so.addr[index + 1];
-					data->rcast->blue = data->textures->so.addr[index];
-				}
-				else
-				{
-					data->rcast->red = data->textures->no.addr[index + 2];
-					data->rcast->green = data->textures->no.addr[index + 1];
-					data->rcast->blue = data->textures->no.addr[index];
-				}
+				data->rcast->red = data->textures->door.addr[data->rcast->index + 2];
+				data->rcast->green = data->textures->door.addr[data->rcast->index + 1];
+				data->rcast->blue = data->textures->door.addr[data->rcast->index];
 			}
+			else if (*data->rcast->wall_type == '2' && data->rcast->frame == 1)
+				ft_get_pix_anim(data, &data->textures->anim_1);
+			else if (*data->rcast->wall_type == '2' && data->rcast->frame == 2)
+				ft_get_pix_anim(data, &data->textures->anim_2);
+			else if (*data->rcast->wall_type == '2' && data->rcast->frame == 3)
+				ft_get_pix_anim(data, &data->textures->anim_3);
+			else if (*data->rcast->wall_type == '2' && data->rcast->frame == 4)
+				ft_get_pix_anim(data, &data->textures->anim_4);
 			else
 			{
-				if (data->rcast->raydir.x > 0.0)
+				if (data->rcast->side)
 				{
-					data->rcast->red = data->textures->ea.addr[index + 2];
-					data->rcast->green = data->textures->ea.addr[index + 1];
-					data->rcast->blue = data->textures->ea.addr[index];
+					if (data->rcast->raydir.y > 0.0)
+					{
+						data->rcast->red = data->textures->so.addr[data->rcast->index + 2];
+						data->rcast->green = data->textures->so.addr[data->rcast->index + 1];
+						data->rcast->blue = data->textures->so.addr[data->rcast->index];
+					}
+					else
+					{
+						data->rcast->red = data->textures->no.addr[data->rcast->index + 2];
+						data->rcast->green = data->textures->no.addr[data->rcast->index + 1];
+						data->rcast->blue = data->textures->no.addr[data->rcast->index];
+					}
 				}
 				else
 				{
-					data->rcast->red = data->textures->we.addr[index + 2];
-					data->rcast->green = data->textures->we.addr[index + 1];
-					data->rcast->blue = data->textures->we.addr[index];
+					if (data->rcast->raydir.x > 0.0)
+					{
+						data->rcast->red = data->textures->ea.addr[data->rcast->index + 2];
+						data->rcast->green = data->textures->ea.addr[data->rcast->index + 1];
+						data->rcast->blue = data->textures->ea.addr[data->rcast->index];
+					}
+					else
+					{
+						data->rcast->red = data->textures->we.addr[data->rcast->index + 2];
+						data->rcast->green = data->textures->we.addr[data->rcast->index + 1];
+						data->rcast->blue = data->textures->we.addr[data->rcast->index];
+					}
 				}
 			}
 			img_pix_put(&data->img, data->rcast->x, y, ((data->rcast->red << 16) + (data->rcast->green << 8) + data->rcast->blue));
@@ -191,4 +256,8 @@ void	ft_raycast(t_data *data)
 		}
 		data->rcast->x++;
 	}
+	if (data->rcast->frame >= 1 && data->rcast->frame <= 3)
+		data->rcast->frame++;
+	else
+		data->rcast->frame = 1;
 }

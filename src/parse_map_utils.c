@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:15:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/08 16:33:21 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/11 11:24:12 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	ft_is_map_char(char c)
 {
-	if (c == '1' || c == '0' || c == 'D' || c == 'N'
+	if (c == '1' || c == '0' || c == 'D' || c == 'N' || c == 'D' || c == '2'
 		|| c == 'S' || c == 'E' || c == 'W' || c == ' ' || c == '\n')
 		return (1);
 	return (0);
@@ -80,11 +80,8 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	return (str);
 }
 
-char	ft_check_data(t_data *data)
+void	ft_init_textures(t_data *data)
 {
-	if (!data->textures->no.mlx_img || !data->textures->so.mlx_img
-		|| !data->textures->ea.mlx_img || !data->textures->we.mlx_img)
-		return (0);
 	data->textures->no.addr = mlx_get_data_addr(data->textures->no.mlx_img, \
 		&data->textures->no.bpp, &data->textures->no.line_len, \
 			&data->textures->no.endian);
@@ -97,6 +94,35 @@ char	ft_check_data(t_data *data)
 	data->textures->we.addr = mlx_get_data_addr(data->textures->we.mlx_img, \
 		&data->textures->we.bpp, &data->textures->we.line_len, \
 			&data->textures->we.endian);
+	int	res = WALL_RES;
+	data->textures->door.mlx_img = mlx_xpm_file_to_image(data->mlx, DOOR_PATH, &res, &res);
+	data->textures->door.addr = mlx_get_data_addr(data->textures->door.mlx_img, \
+		&data->textures->door.bpp, &data->textures->door.line_len, \
+			&data->textures->door.endian);
+	data->textures->anim_1.mlx_img = mlx_xpm_file_to_image(data->mlx, ANIM_1, &res, &res);
+	data->textures->anim_1.addr = mlx_get_data_addr(data->textures->anim_1.mlx_img, \
+		&data->textures->anim_1.bpp, &data->textures->anim_1.line_len, \
+			&data->textures->anim_1.endian);
+		data->textures->anim_2.mlx_img = mlx_xpm_file_to_image(data->mlx, ANIM_2, &res, &res);
+	data->textures->anim_2.addr = mlx_get_data_addr(data->textures->anim_2.mlx_img, \
+		&data->textures->anim_2.bpp, &data->textures->anim_2.line_len, \
+			&data->textures->anim_2.endian);
+		data->textures->anim_3.mlx_img = mlx_xpm_file_to_image(data->mlx, ANIM_3, &res, &res);
+	data->textures->anim_3.addr = mlx_get_data_addr(data->textures->anim_3.mlx_img, \
+		&data->textures->anim_3.bpp, &data->textures->anim_3.line_len, \
+			&data->textures->anim_3.endian);
+		data->textures->anim_4.mlx_img = mlx_xpm_file_to_image(data->mlx, ANIM_4, &res, &res);
+	data->textures->anim_4.addr = mlx_get_data_addr(data->textures->anim_4.mlx_img, \
+		&data->textures->anim_4.bpp, &data->textures->anim_4.line_len, \
+			&data->textures->anim_4.endian);
+}
+
+char	ft_check_data(t_data *data)
+{
+	if (!data->textures->no.mlx_img || !data->textures->so.mlx_img
+		|| !data->textures->ea.mlx_img || !data->textures->we.mlx_img)
+		return (0);
+	ft_init_textures(data);
 	if (data->textures->floor == ERR
 		|| data->textures->ceiling == ERR)
 		return (0);

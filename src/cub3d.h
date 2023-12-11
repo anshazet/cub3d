@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:19:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/08 16:35:59 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/11 11:43:26 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@
 # define X_OFFSET		10 // X offset from the screen corner
 # define Y_OFFSET		10 // Y offset from the screen corner
 
+# define DOOR_PATH		"./textures/door-.xpm"
+
+# define ANIM_1 "./textures/fire_1.xpm"
+# define ANIM_2 "./textures/fire_2.xpm"
+# define ANIM_3 "./textures/fire_3.xpm"
+# define ANIM_4 "./textures/fire_4.xpm"
+
 /*		STRUCTURES		*/
 
 typedef struct s_image
@@ -78,6 +85,11 @@ typedef struct s_texture
 	t_image		so;
 	t_image		ea;
 	t_image		we;
+	t_image		door;
+	t_image		anim_1;
+	t_image		anim_2;
+	t_image		anim_3;
+	t_image		anim_4;
 	unsigned int	floor;
 	unsigned int	ceiling;
 }		t_textures;
@@ -123,9 +135,12 @@ typedef struct s_rcast
 	unsigned char	blue;
 	int		x;
 	int		side;
+	int		index;
 	float		tex_x;
 	int		draw_end;
 	int		draw_start;
+	char	*wall_type;
+	char	frame;
 }			t_rcast;
 
 typedef struct s_data
