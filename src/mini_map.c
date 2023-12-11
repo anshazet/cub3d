@@ -6,7 +6,7 @@
 /*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:11:06 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/11 12:50:39 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:57:00 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,18 @@ void ft_draw_mini_map(t_data *data)
 		{
 			mini_map_x = X_OFFSET + (x * MINI_MAP_SCALE);
 			mini_map_y = Y_OFFSET + (y * MINI_MAP_SCALE);
+			if (mini_map_x + MINI_MAP_SCALE > SCREENWIDTH || mini_map_y + MINI_MAP_SCALE > SCREENHEIGHT)
+			{
+				x++;
+				continue;
+			}
 			if (data->map[y][x] == '1' || data->map[y][x] == '2' \
 					|| data->map[y][x] == '3' || data->map[y][x] == '4' \
 						|| data->map[y][x] == '5')
 			{
 				color = 0xFFFFFF; // White for walls
 			}
-			else if (data->map[y][x] == 'D')
+			else if (data->map[y][x] == 'D' || data->map[y][x] == 'O')
 			{
 				color = 0x00FFFF;
 			}
