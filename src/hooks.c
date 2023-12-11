@@ -6,7 +6,7 @@
 /*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:30:06 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/11 10:31:42 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/11 11:12:48 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,23 @@ static void	ft_deplace_player(t_data *data, float forward, float right)
 							+ right * cosf(ft_deg_to_rad(data->player->angle + 90.0));
 	new_pos_y = data->player->pos.y + forward * sinf(-ft_deg_to_rad(data->player->angle))
 							+ right * sinf(-ft_deg_to_rad(data->player->angle + 90.0));
-
-	// Check if the new position is within a wall
 	if (new_pos_x < 0 || new_pos_y < 0 || new_pos_x > data->map_max_x - 1 || new_pos_y > data->map_max_y - 1)
 		return;
-	if (data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '1' && data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != ' ' && data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != 'D')
+	if (data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '1' \
+		&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != ' ' \
+			&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != 'D')
 	{
-		// Update player's position if not colliding with a wall
 		data->player->pos.x = new_pos_x;
 		data->player->pos.y = new_pos_y;
 	}
-	// logic to handle sliding along walls or corner collisions
+	if (data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '2' \
+		&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '3' \
+		&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '4' \
+		&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '5')
+	{
+		data->player->pos.x = new_pos_x;
+		data->player->pos.y = new_pos_y;
+	}
 }
 
 static void	ft_rotate_player(t_data *data, float val)
