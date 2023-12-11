@@ -6,10 +6,9 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:19:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/11 13:17:07 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/11 17:05:56 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -81,15 +80,15 @@ typedef struct s_image
 
 typedef struct s_texture
 {
-	t_image		no;
-	t_image		so;
-	t_image		ea;
-	t_image		we;
-	t_image		door;
-	t_image		anim_1;
-	t_image		anim_2;
-	t_image		anim_3;
-	t_image		anim_4;
+	t_image			no;
+	t_image			so;
+	t_image			ea;
+	t_image			we;
+	t_image			door;
+	t_image			anim_1;
+	t_image			anim_2;
+	t_image			anim_3;
+	t_image			anim_4;
 	unsigned int	floor;
 	unsigned int	ceiling;
 }		t_textures;
@@ -109,40 +108,39 @@ typedef struct s_coords_f
 typedef struct s_player
 {
 	t_coords_f	pos;
-	float	angle;
-//	int			facing_door; // 1 if facing a door, 0 otherwise
-	int		facing_door;
-	int		door_x;
-	int		door_y;
+	float		angle;
+	int			facing_door;
+	int			door_x;
+	int			door_y;
 }		t_player;
 
 typedef struct s_rcast
 {
-	t_coords_f	pos;
-	t_coords_f	dir;
-	t_coords_f	plane;
-	t_coords_f	raydir;
-	t_coords_f	sidedist;
-	t_coords_f	deltadist;
-	t_coords	map;
-	t_coords	step;
-	float		step_tex;
-	float		camera_x;
-	float		line_height;
-	float		tex_pos;
-	float		perp_wall_dist;
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char	blue;
-	int		x;
-	int		y;
-	int		side;
-	int		index;
-	float		tex_x;
-	int		draw_end;
-	int		draw_start;
-	char	*wall_type;
-	char	frame;
+	t_coords_f		pos;
+	t_coords_f		dir;
+	t_coords_f		plane;
+	t_coords_f		raydir;
+	t_coords_f		sidedist;
+	t_coords_f		deltadist;
+	t_coords		map;
+	t_coords		step;
+	float			step_tex;
+	float			camera_x;
+	float			line_height;
+	float			tex_pos;
+	float			perp_wall_dist;
+	float			tex_x;
+	char			*wall_type;
+	char			frame;
+	int				x;
+	int				y;
+	int				side;
+	int				index;
+	int				draw_end;
+	int				draw_start;
 }			t_rcast;
 
 typedef struct s_data
@@ -164,7 +162,7 @@ typedef struct s_data
 t_data	*ft_parse_map(char *map_name);
 t_data	*ft_read_infos(int fd);
 
-char	ft_get_info(char *line, t_data *data);
+char	ft_get_info(char *line, t_data *data, int i);
 char	ft_check_data(t_data *data);
 char	ft_is_map_char(char c);
 char	ft_pathfinding(t_data *data);
@@ -174,7 +172,7 @@ char	*ft_strjoin_free(char *s1, char *s2);
 void	*ft_get_image(char *line, t_data *data);
 void	ft_get_player_coords(t_data *data);
 
-int		ft_get_color(char *line);
+int		ft_get_color(char *line, unsigned int color);
 
 /*		UTILS FUNCTIONS		*/
 
@@ -185,23 +183,20 @@ void	ft_free_all(t_data *data);
 int		ft_close_button(t_data *data);
 int		ft_player_move(int keycode, t_data *data);
 int		ft_mouse_hook(int x, int y, t_data *param);
-
-//void	ft_render_game(t_data *data);
 void	ft_raycast_horizontal(t_data *data, int angle);
 
 /*		DRAW			*/
-
-void	ft_draw_vector(float x1, float y1, float x2, float y2, t_data *data);
 
 void	img_pix_put(t_image *img, int x, int y, int color);
 void	ft_create_image(t_data *data);
 void	ft_draw_bg(t_data *data);
 
 /*		FI_INIT			*/
-int ft_game_loop(t_data *data);
 
+int		ft_game_loop(t_data *data);
 
-/*		FT_PAYCASTING_1			*/
+/*		FT_RAYCASTING			*/
+
 float	ft_deg_to_rad(float a);
 float	ft_fix_ang(float a);
 void	ft_cast_vertical_ray(t_data *data, float *disV);
@@ -209,11 +204,17 @@ void	ft_cast_horizontal_ray(t_data *data, float *disH);
 void	ft_draw_rays_2d(t_data *data);
 void	ft_raycast(t_data *data);
 
+/*		TEXTURE_RAYCAST		*/
+
+void	ft_draw_pix(t_data *data);
+
 /*		MINI_MAP			*/
-void ft_draw_mini_map(t_data *data);
-void ft_draw_mini_player(t_data *data);
+
+void	ft_draw_mini_map(t_data *data);
+void	ft_draw_mini_player(t_data *data);
 
 /*		DOOR			*/
-void ft_interact_door(t_data *data);
+
+void	ft_interact_door(t_data *data);
 
 #endif

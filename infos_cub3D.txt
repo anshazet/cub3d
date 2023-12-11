@@ -21,12 +21,14 @@ To fix:
 - Working on a more consistent parsing :
 	- Check for .xpm at the end of the images before trying to open them
 	- Need to check for characters or anything else after the map parsing.
-	- Colors can be redefined
+	- Colors can be redefined | FIXED
 	- Need to return an error if redifining a texture, and not just ignore.
 
 - Doors implementation | OK
-	- Doors must be able to open and close
+	- Doors must be able to open and close | OK
 - Animated sprite implementation | OK
 
 - Minimap :
-	- If the map is too large the minimap crashes the prog
+	- If the map is too large the minimap crashes the prog | OK
+	
+NNNNOOOOORRRRRMMMMMMEEEEEE !!!!!

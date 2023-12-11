@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 10:01:20 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/08 16:33:40 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/11 17:42:18 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,29 @@ void	ft_check_file_name(char *map_name)
 	}
 }
 
+char	ft_only_spaces(t_data *data, char *line, int fd)
+{
+	int		i;
+	char	*gnl;
+
+	i = 0;
+	while (line[i] && (!ft_isprint(line[i]) || line[i] == ' '))
+		i++;
+	if (line[i])
+	{
+		ft_free_all(data);
+		free(line);
+		gnl = get_next_line(fd);
+		while (gnl)
+		{
+			free(gnl);
+			gnl = get_next_line(fd);
+		}
+		return (-1);
+	}
+	return (0);
+}
+
 t_data	*ft_parse_map(char *map_name)
 {
 	int		fd;
@@ -46,6 +69,8 @@ t_data	*ft_parse_map(char *map_name)
 	line = get_next_line(fd);
 	while (line)
 	{
+		if (!ft_only_spaces(data, line, fd))
+			return (NULL);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -82,7 +107,7 @@ void	*ft_get_image(char *line, t_data *data)
 	return (img);
 }
 
-int	ft_get_color(char *line)
+int	ft_get_color(char *line, unsigned int color)
 {
 	unsigned int	res;
 	int				add;
@@ -92,7 +117,7 @@ int	ft_get_color(char *line)
 	nb = 0;
 	i = 2;
 	res = 0;
-	while (line[i] && line[i] != '\n')
+	while (line[i] && line[i] != '\n' && color < 16777216)
 	{
 		if (!ft_isdigit(line[i]) && (ft_isprint(line[i]) && line[i] != ' '))
 			return (ERR);
@@ -115,7 +140,7 @@ int	ft_get_color(char *line)
 			i++;
 	}
 	if (nb == 3)
-		return (res);
+		return (res + 16777216);
 	return (ERR);
 }
 
@@ -227,7 +252,7 @@ t_data	*ft_read_infos(int fd)
 		i = 0;
 		while (line[i] && (!ft_isprint(line[i]) || line[i] == ' '))
 			i++;
-		if (!ft_get_info(line + i, data))
+		if (!ft_get_info(line + i, data, 0))
 		{
 			if (line[i] && ft_is_map_char(line[i]))
 			{

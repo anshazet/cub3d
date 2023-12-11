@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/11 17:42:25 by gbricot           #+#    #+#              #
+#    Updated: 2023/12/11 17:42:26 by gbricot          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # Define your source files and target executable
 SRC_DIR := ./src
 SRC_FILES :=	main.c \
@@ -9,7 +21,7 @@ SRC_FILES :=	main.c \
 				ft_free.c \
 				ft_init.c \
 				ft_raycasting_1.c \
-				bresenham.c \
+				texture_raycast.c \
 				mini_map.c \
 				door.c
 

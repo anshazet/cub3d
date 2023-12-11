@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:18:22 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/11 11:12:32 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/11 17:09:55 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,26 @@ static void	ft_free_textures(t_data	*data)
 	free(data->textures);
 }
 
+static void	ft_free_next(t_data *data)
+{
+	if (data->textures)
+		ft_free_textures(data);
+	if (data->player)
+		free(data->player);
+	if (data->img.mlx_img)
+		mlx_destroy_image(data->mlx, data->img.mlx_img);
+	if (data->rcast)
+		free(data->rcast);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	free(data);
+}
+
 void	ft_free_all(t_data *data)
 {
 	int		i;
 
 	i = 0;
-	//mlx_mouse_show(data->mlx, data->win);
 	if (data)
 	{
 		if (data->win)
@@ -54,16 +68,6 @@ void	ft_free_all(t_data *data)
 				free(data->map[i++]);
 			free(data->map);
 		}
-		if (data->textures)
-			ft_free_textures(data);
-		if (data->player)
-			free(data->player);
-		if (data->img.mlx_img)
-			mlx_destroy_image(data->mlx, data->img.mlx_img);
-		if (data->rcast)
-			free(data->rcast);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		free(data);
+		ft_free_next(data);
 	}
 }
