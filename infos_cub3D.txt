@@ -24,8 +24,9 @@ To fix:
 	- Colors can be redefined
 	- Need to return an error if redifining a texture, and not just ignore.
 
-- Doors implementation
-- Animated sprite implementation
+- Doors implementation | OK
+	- Doors must be able to open and close
+- Animated sprite implementation | OK
 
 - Minimap :
 	- If the map is too large the minimap crashes the prog

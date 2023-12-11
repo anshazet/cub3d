@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:19:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/11 11:43:26 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/11 13:17:07 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_rcast
 	t_coords_f	deltadist;
 	t_coords	map;
 	t_coords	step;
+	float		step_tex;
 	float		camera_x;
 	float		line_height;
 	float		tex_pos;
@@ -134,6 +135,7 @@ typedef struct s_rcast
 	unsigned char	green;
 	unsigned char	blue;
 	int		x;
+	int		y;
 	int		side;
 	int		index;
 	float		tex_x;

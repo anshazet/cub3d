@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:30:06 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/11 11:12:48 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:55:52 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ int	ft_close_button(t_data *data)
 	ft_free_all(data);
 	exit(0);
 }
-
-/*
-check if the player's new position after moving would intersect a wall.
-If yes prevent the movement or adjust the position to avoid passing
-through the wall
-*/
 
 static void	ft_deplace_player(t_data *data, float forward, float right)
 {
@@ -35,17 +29,11 @@ static void	ft_deplace_player(t_data *data, float forward, float right)
 							+ right * sinf(-ft_deg_to_rad(data->player->angle + 90.0));
 	if (new_pos_x < 0 || new_pos_y < 0 || new_pos_x > data->map_max_x - 1 || new_pos_y > data->map_max_y - 1)
 		return;
-	if (data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '1' \
-		&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != ' ' \
-			&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != 'D')
-	{
-		data->player->pos.x = new_pos_x;
-		data->player->pos.y = new_pos_y;
-	}
-	if (data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '2' \
-		&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '3' \
-		&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '4' \
-		&& data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] != '5')
+	if (data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] == '0' \
+		|| data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] == 'N' \
+		|| data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] == 'S' \
+		|| data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] == 'E' \
+		|| data->map[(int)floorf(new_pos_y)][(int)floorf(new_pos_x)] == 'W')
 	{
 		data->player->pos.x = new_pos_x;
 		data->player->pos.y = new_pos_y;
@@ -69,7 +57,6 @@ int	ft_mouse_hook(int x, int y, t_data *data)
 	x -= SCREENWIDTH / 2;
 	ft_rotate_player(data, (float)(x * -ROT_SPEED));
 	mlx_mouse_move(data->mlx, data->win, SCREENWIDTH / 2, SCREENHEIGHT / 2);
-	//printf("%f\n", data->player->angle);
 	/*mlx_mouse_hide(data->mlx, data->win); // leaks...*/
 	return (0);
 }
@@ -84,8 +71,8 @@ int	ft_player_move(int keycode, t_data *data)
 		ft_deplace_player(data, MOVE_SPEED, 0);
 	else if (keycode == D)
 		ft_deplace_player(data, -MOVE_SPEED, 0);
-	// else if (keycode == SPACE)
-	// 	ft_interact_door(data);
+	else if (keycode == SPACE)
+		ft_interact_door(data);
 	else if (keycode == ESC)
 	{
 		ft_free_all(data);
@@ -93,92 +80,3 @@ int	ft_player_move(int keycode, t_data *data)
 	}
 	return (0);
 }
-/*
-int ft_player_move(int keycode, t_data *data)
-{
-	// ... existing movement code ...
-
-	if (keycode == SPACE)
-	{
-		if (data->player->facing_door)
-		{
-			// Replace 'D' with '0' in the map at the door's position
-			data->map[data->player->door_y][data->player->door_x] = '0';
-		}
-	}
-
-	// ... rest of the function ...
-}
-*/
-
-/*
-static void	ft_deplace_player(t_data *data, float forward, float right)
-{
-	float	new_pos_x;
-	float	new_pos_y;
-	int		map_x;
-	int		map_y;
-
-	new_pos_x = data->player->pos.x + forward * cosf(ft_deg_to_rad(data->player->angle))
-							+ right * cosf(ft_deg_to_rad(data->player->angle + 90.0));
-	new_pos_y = data->player->pos.y + forward * sinf(-ft_deg_to_rad(data->player->angle))
-							+ right * sinf(-ft_deg_to_rad(data->player->angle + 90.0));
-	// Collision detection
-	map_x = (int)new_pos_x;
-	map_y = (int)new_pos_y;
-	// Check if the new position is within a wall
-	if (data->map[map_y][map_x] != '1')
-	{
-		// Update player's position if not colliding with a wall
-		data->player->pos.x = new_pos_x;
-		data->player->pos.y = new_pos_y;
-	}
-	// logic to handle sliding along walls or corner collisions
-}
-*/
-/*
-static void ft_deplace_player(t_data *data, float forward, float right)
-{
-	float	new_pos_x;
-	float	new_pos_y;
-	int		map_x;
-	int		map_y;
-	const float buffer = 0.4f;
-
-	// Calculate potential new position
-	new_pos_x = data->player->pos.x + forward * cosf(ft_deg_to_rad(data->player->angle))
-							+ right * cosf(ft_deg_to_rad(data->player->angle + 90.0));
-	new_pos_y = data->player->pos.y + forward * sinf(-ft_deg_to_rad(data->player->angle))
-							+ right * sinf(-ft_deg_to_rad(data->player->angle + 90.0));
-
-	// collision detection
-	if (forward > 0)
-	{
-		map_x = floor(new_pos_x + buffer);
-		map_y = floor(new_pos_y + buffer);
-	}
-	else
-	{
-		map_x = floor(new_pos_x - buffer);
-		map_y = floor(new_pos_y - buffer);
-	}
-	if (data->map[map_y][map_x] != '1')
-	{
-		// Update player's position if not colliding with a wall
-		data->player->pos.x = new_pos_x;
-		data->player->pos.y = new_pos_y;
-	}
-	// printf("mx: %d | my: %d\n", map_x, map_y);
-	// printf("px: %f | py: %f\n", data->player->pos.x, data->player->pos.y);
-}
-*/
-
-/*
-static void	ft_deplace_player(t_data *data, float forward, float right)
-{
-	data->player->pos.x += forward * cosf(ft_deg_to_rad(data->player->angle))
-					+ right * cosf(ft_deg_to_rad(data->player->angle + 90.0));
-	data->player->pos.y += forward * sinf(-ft_deg_to_rad(data->player->angle))
-					+ right * sinf(-ft_deg_to_rad(data->player->angle + 90.0));
-}
-*/
