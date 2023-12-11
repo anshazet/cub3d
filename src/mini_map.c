@@ -6,7 +6,7 @@
 /*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:11:06 by ashalagi          #+#    #+#             */
-/*   Updated: 2023/12/11 14:57:00 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:28:06 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ void ft_draw_mini_player(t_data *data)
 		px = 0;
 		while (px < player_size)
 		{
+			if (player_map_x + MINI_MAP_SCALE > SCREENWIDTH || player_map_y + MINI_MAP_SCALE > SCREENHEIGHT)
+			{
+				px++;
+				return;
+			}
 			img_pix_put(&data->img, player_map_x + px - player_size / 2, player_map_y + py - player_size / 2, 0xFF0000); // Red square for the player
 			px++;
 		}
