@@ -1,14 +1,14 @@
 
-        WE ./textures/egypt_5.xpm
-   EA ./textures/egypt_6.xpm
+        WE ./textures/ny_1.xpm
+   EA ./textures/ny_2.xpm
 
 
-NO ./textures/egypt_7.xpm
-SO ./textures/egypt_2.xpm
+NO ./textures/ny_3.xpm
+SO ./textures/ny_4.xpm
 
 
-F 160,110,15
-C 200,165,90
+F 0,150,0
+C 240,0,0
 
                 111111
                 111111
