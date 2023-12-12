@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:19:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/12 10:54:40 by ashalagi         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:13:39 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,16 +162,21 @@ typedef struct s_data
 t_data	*ft_parse_map(char *map_name);
 t_data	*ft_read_infos(int fd);
 
-char	ft_get_info(char *line, t_data *data, int i);
+char	ft_get_info(char *line, t_data *data);
 char	ft_check_data(t_data *data);
 char	ft_is_map_char(char c);
 char	ft_pathfinding(t_data *data);
+char	ft_only_spaces(t_data *data, char *line, int fd);
 
 char	*ft_strjoin_free(char *s1, char *s2);
+char	*ft_check_tex_name(char *line, char	*file, int j);
 
-void	*ft_get_image(char *line, t_data *data);
+char	**ft_check_map(char **base_map, t_data *data);
+
+void	ft_get_image(t_data *data, char *line, t_image *img);
 void	ft_get_player_coords(t_data *data);
 
+int		ft_strlen_map(char *str);
 int		ft_get_color(char *line, unsigned int color);
 
 /*		UTILS FUNCTIONS		*/
@@ -195,7 +200,7 @@ void	ft_draw_bg(t_data *data);
 
 int		ft_game_loop(t_data *data);
 
-/*		FT_RAYCASTING			*/
+/*		RAYCASTING			*/
 
 float	ft_deg_to_rad(float a);
 float	ft_fix_ang(float a);
@@ -203,6 +208,10 @@ void	ft_cast_vertical_ray(t_data *data, float *disV);
 void	ft_cast_horizontal_ray(t_data *data, float *disH);
 void	ft_draw_rays_2d(t_data *data);
 void	ft_raycast(t_data *data);
+void	ft_get_side_dist(t_data *data);
+char	ft_wall_found(t_data *data);
+void	ft_search_wall(t_data *data);
+void	ft_calc_wall_dist(t_data *data);
 
 /*		TEXTURE_RAYCAST		*/
 

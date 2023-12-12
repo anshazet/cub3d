@@ -19,10 +19,10 @@ To fix:
 	- Cubes are not cubes.. | OK (same mistake)
 
 - Working on a more consistent parsing :
-	- Check for .xpm at the end of the images before trying to open them
-	- Need to check for characters or anything else after the map parsing.
+	- Check for .xpm at the end of the images before trying to open them | OK
+	- Need to check for characters or anything else after the map parsing. | OK
 	- Colors can be redefined | FIXED
-	- Need to return an error if redifining a texture, and not just ignore.
+	- Need to return an error if redifining a texture, and not just ignore. | OK
 
 - Doors implementation | OK
 	- Doors must be able to open and close | OK

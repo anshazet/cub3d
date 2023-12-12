@@ -6,7 +6,7 @@
 /*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 15:15:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/11 16:52:44 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/12 13:00:13 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,6 @@ char	ft_is_map_char(char c)
 		|| c == 'S' || c == 'E' || c == 'W' || c == ' ' || c == '\n')
 		return (1);
 	return (0);
-}
-
-char	ft_get_info(char *line, t_data *data, int i)
-{
-	if (!*line)
-		return (1);
-	if (!data->textures->no.mlx_img && !ft_strncmp(line, "NO ", 3))
-		data->textures->no.mlx_img = ft_get_image(line, data);
-	else if (!data->textures->so.mlx_img && !ft_strncmp(line, "SO ", 3))
-		data->textures->so.mlx_img = ft_get_image(line, data);
-	else if (!data->textures->ea.mlx_img && !ft_strncmp(line, "EA ", 3))
-		data->textures->ea.mlx_img = ft_get_image(line, data);
-	else if (!data->textures->we.mlx_img && !ft_strncmp(line, "WE ", 3))
-		data->textures->we.mlx_img = ft_get_image(line, data);
-	else if (!ft_strncmp(line, "F ", 2))
-		data->textures->floor = ft_get_color(line, data->textures->floor);
-	else if (!ft_strncmp(line, "C ", 2))
-		data->textures->ceiling = ft_get_color(line, data->textures->ceiling);
-	else
-	{
-		while (!ft_isprint(line[i]))
-			i++;
-		if (line[i])
-			return (0);
-		return (0);
-	}
-	return (1);
 }
 
 char	*ft_strjoin_free(char *s1, char *s2)
