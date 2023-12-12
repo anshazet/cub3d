@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 11:19:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/12/11 17:05:56 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/12/12 10:12:35 by ashalagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,9 @@ void	ft_draw_pix(t_data *data);
 
 /*		MINI_MAP			*/
 
+void	draw_map_element(t_data *data, int mini_map_x, int mini_map_y, int color);
+int		ft_put_color(char map_value);
+int		ft_should_draw(int mini_map_x, int mini_map_y);
 void	ft_draw_mini_map(t_data *data);
 void	ft_draw_mini_player(t_data *data);
 
