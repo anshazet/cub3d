@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gbricot <gbricot@student.42perpignan.fr    +#+  +:+       +#+         #
+#    By: ashalagi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 17:42:25 by gbricot           #+#    #+#              #
-#    Updated: 2023/12/11 17:42:26 by gbricot          ###   ########.fr        #
+#    Updated: 2023/12/12 11:21:03 by ashalagi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC_FILES :=	main.c \
 				ft_init.c \
 				ft_raycasting_1.c \
 				texture_raycast.c \
-				mini_map.c \
+				mini_map_1.c \
+				mini_map_2.c \
 				door.c
 
 
